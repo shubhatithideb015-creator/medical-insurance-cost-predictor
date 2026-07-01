@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Medical Insurance Cost Predictor</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<body>
+
+<div class="page">
+
+    <header>
+        <h1>
+            <i class="fa-solid fa-heart-pulse"></i>
+            Medical Insurance Cost Predictor
+        </h1>
+
+        <p>
+            Predict healthcare insurance costs using Machine Learning
+        </p>
+    </header>
+
+    <main>
+
+        <!-- LEFT SIDE -->
+        <section class="form-card">
+
+            <form action="/predict" method="POST">
+
+                <h2>Personal Information</h2>
+
+                <div class="form-grid">
+
+                    <div class="input-group">
+                        <label><i class="fa-solid fa-user"></i> Age</label>
+                        <input type="number" name="age" placeholder="Enter your age" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label><i class="fa-solid fa-venus-mars"></i> Gender</label>
+                        <select name="sex" required>
+                            <option value="">Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label><i class="fa-solid fa-weight-scale"></i> BMI</label>
+                        <input type="number" step="0.1" name="bmi" placeholder="Example: 26.5" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label><i class="fa-solid fa-child"></i> Children</label>
+                        <input type="number" name="children" min="0" max="10" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label><i class="fa-solid fa-smoking"></i> Smoker</label>
+                        <select name="smoker" required>
+                            <option value="">Select</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label><i class="fa-solid fa-location-dot"></i> Region</label>
+                        <select name="region" required>
+                            <option value="">Select Region</option>
+                            <option value="northeast">Northeast</option>
+                            <option value="northwest">Northwest</option>
+                            <option value="southeast">Southeast</option>
+                            <option value="southwest">Southwest</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <button type="submit" id="predictBtn" class="predict-btn">
+                    <span id="btnText">Predict Insurance Cost</span>
+                    <span id="loader" style="display:none;">Predicting...</span>
+                </button>
+
+            </form>
+
+        </section>
+
+        <!-- RIGHT SIDE -->
+        <section class="info-card">
+
+            <h2>About This Model</h2>
+
+            <div class="info">
+
+                <div>
+                    <i class="fa-solid fa-brain"></i>
+                    <span>Random Forest Regression</span>
+                </div>
+
+                <div>
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>R² Score: 0.87</span>
+                </div>
+
+                <div>
+                    <i class="fa-solid fa-gears"></i>
+                    <span>Scikit-Learn Pipeline</span>
+                </div>
+
+                <div>
+                    <i class="fa-solid fa-server"></i>
+                    <span>Flask Backend</span>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Prediction Result -->
+    {% if prediction_text %}
+    <section class="result-card">
+
+        <h3>Estimated Annual Insurance Cost</h3>
+
+        <h1>{{ prediction_text }}</h1>
+
+        <p>
+            Prediction generated using Random Forest Regression
+        </p>
+
+    </section>
+    {% endif %}
+
+    <footer>
+        Built by <strong>Shubhatithi Deb</strong> |
+        <a href="https://github.com/shubhatithideb015-creator" target="_blank">GitHub</a> |
+        <a href="www.linkedin.com/in/shubhatithi-deb-245900379" target="_blank">LinkedIn</a>
+    </footer>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
